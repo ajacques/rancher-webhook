@@ -1,0 +1,11 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'bin/*'
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 150
+
+Documentation:
+  Enabled: false
