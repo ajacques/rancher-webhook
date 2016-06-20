@@ -1,14 +1,11 @@
 require 'sinatra'
-require 'json'
-require 'net/http'
 require 'rack/contrib'
+require_relative './init_env'
 require_relative './rancher'
+require_relative './upgrade_job'
 
 use Rack::PostBodyContentTypeParser
 
-Resque.redis = ENV['REDIS_URI']
-
-client = Rancher.new uri: ENV['RANCHER_URI'], access_key: ENV['RANCHER_ACCESS_KEY'], secret_key: ENV['RANCHER_SECRET_KEY']
 
 post '/docker_hub' do
   body = request.env['rack.request.form_hash']

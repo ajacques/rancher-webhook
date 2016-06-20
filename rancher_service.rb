@@ -1,15 +1,38 @@
 class RancherService
   def initialize(client, opts={})
-    @uri = opts['links']['self']
-    @upgrade_uri = opts['actions']['upgrade']
-    @current_service = opts['upgrade']['inServiceStrategy']
-    @client = client
+    @client, @data = client, opts
+  end
+
+  def upgraded?
+    @data['state'] == 'upgraded'
   end
 
   def upgrade
     payload = {
-      toServiceStrategy: @current_service
+      inServiceStrategy: current_service
     }
-    response = @client.post_api @upgrade_uri, JSON.dump(payload)
+    @client.post_api upgrade_uri, JSON.dump(payload)
+  end
+
+  def finalize_upgrade
+    @client.post_api finish_upgrade_uri, '{}'
+  end
+
+  def uri
+    @data['links']['self']
+  end
+
+  private
+
+  def current_service
+    @data['upgrade']['inServiceStrategy']
+  end
+
+  def upgrade_uri
+    @data['actions']['upgrade']
+  end
+
+  def finish_upgrade_uri
+    @data['actions']['finishupgrade']
   end
 end

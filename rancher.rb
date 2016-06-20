@@ -17,8 +17,12 @@ class Rancher
     nil
   end
 
+  def find_service_by_uri(uri)
+    RancherService.new self, JSON.parse(RestClient::Request.execute method: :get, url: uri, user: @access_key, password: @secret_key)
+  end
+
   def post_api(url, body)
-    JSON.parse RestClient::Request.execute method: :post, url: url, payload: body, user: @access_key, password: @secret_key
+    JSON.parse RestClient::Request.execute method: :post, url: url, payload: body, user: @access_key, password: @secret_key, headers: { content_type: :json }
   end
 
   private
