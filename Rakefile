@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
 
 require 'resque/tasks'
 require 'resque/scheduler/tasks'
@@ -12,4 +10,8 @@ namespace :resque do
   end
 end
 
-task default: [:rubocop]
+if ENV['RAILS_ENV'] == 'development'
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+  task default: [:rubocop]
+end
