@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'rack-contrib'
 gem 'rest-client'
 
+gem 'unicorn'
+
 group :development do
   gem 'rubocop'
 end
