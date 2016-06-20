@@ -1,0 +1,43 @@
+redis:
+  image: redis:3.0.7-alpine
+scheduler:
+  environment:
+    RAILS_ENV: production
+    REDIS_URI: redis:6379/resque
+  command:
+    - rake
+    - resque:scheduler
+  log_opt: {}
+  image: ajacques/rancher-webhook:latest
+  links:
+    - redis
+
+Agent:
+  environment:
+    RAILS_ENV: production
+    REDIS_URI: redis:6379/resque
+    GENERATE_SERVER_BLOCK: 'true'
+  labels:
+    io.rancher.container.pull_image: always
+  log_opt: {}
+  image: ajacques/rancher-webhook:latest
+  links:
+    - redis
+
+Worker:
+  environment:
+    QUEUE: '*'
+    RAILS_ENV: production
+    RANCHER_ACCESS_KEY: {access-key}
+    RANCHER_SECRET_KEY: {secret-key}
+    RANCHER_URI: {rancher-uri}
+    REDIS_URI: redis:6379/resque
+  labels:
+    io.rancher.container.pull_image: always
+  command:
+    - rake
+    - resque:work
+  log_opt: {}
+  image: ajacques/rancher-webhook:latest
+  links:
+    - redis
