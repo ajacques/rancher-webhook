@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RancherService
-  def initialize(client, opts={})
+  def initialize(client, opts = {})
     @client, @data = client, opts
   end
 

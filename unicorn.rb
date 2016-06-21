@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 listen 8080
 preload_app true
 worker_processes 4

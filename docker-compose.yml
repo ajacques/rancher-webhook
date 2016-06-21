@@ -7,7 +7,8 @@ scheduler:
   command:
     - rake
     - resque:scheduler
-  log_opt: {}
+  cap_drop:
+    - ALL
   image: ajacques/rancher-webhook:latest
   links:
     - redis
@@ -16,13 +17,13 @@ Agent:
   environment:
     RAILS_ENV: production
     REDIS_URI: redis:6379/resque
-    GENERATE_SERVER_BLOCK: 'true'
   labels:
     io.rancher.container.pull_image: always
-  log_opt: {}
   image: ajacques/rancher-webhook:latest
   links:
     - redis
+  cap_drop:
+    - ALL
 
 Worker:
   environment:
@@ -37,7 +38,8 @@ Worker:
   command:
     - rake
     - resque:work
-  log_opt: {}
   image: ajacques/rancher-webhook:latest
   links:
     - redis
+  cap_drop:
+    - ALL

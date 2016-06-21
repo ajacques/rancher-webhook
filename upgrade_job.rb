@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_job'
 require_relative './rancher'
 require_relative './finalize_upgrade_job'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'rack/contrib'
 require_relative './init_env'
@@ -5,7 +7,6 @@ require_relative './rancher'
 require_relative './upgrade_job'
 
 use Rack::PostBodyContentTypeParser
-
 
 post '/docker_hub' do
   body = request.env['rack.request.form_hash']
