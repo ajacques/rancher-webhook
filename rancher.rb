@@ -11,7 +11,7 @@ class Rancher
   end
 
   def find_services_by_image_name(name, tag)
-    services.filter do |item|
+    services.select do |item|
       item['type'] == 'service' && item['launchConfig']['imageUuid'] == "docker:#{name}:#{tag}"
     end.map do |item|
       RancherService.new self, item
