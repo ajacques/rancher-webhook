@@ -10,13 +10,12 @@ class Rancher
     bootstrap_uris
   end
 
-  def find_service_by_image_name(name, tag)
-    services.each do |item|
-      if item['type'] == 'service' && item['launchConfig']['imageUuid'] == "docker:#{name}:#{tag}"
-        return RancherService.new self, item
-      end
+  def find_services_by_image_name(name, tag)
+    services.filter do |item|
+      item['type'] == 'service' && item['launchConfig']['imageUuid'] == "docker:#{name}:#{tag}"
+    end.map do |item|
+      RancherService.new self, item
     end
-    nil
   end
 
   def find_service_by_uri(uri)

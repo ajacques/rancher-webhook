@@ -10,8 +10,10 @@ class RancherService
   end
 
   def upgrade
+    strategy = current_service
+    strategy['startFirst'] = !strategy['launchConfig']['environment'].key? 'RANCHER_NON_OVERLAPPED_UPGRADES'
     payload = {
-      inServiceStrategy: current_service
+      inServiceStrategy: strategy
     }
     @client.post_api upgrade_uri, JSON.dump(payload)
   end
