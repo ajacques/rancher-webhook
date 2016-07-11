@@ -11,7 +11,7 @@ class RancherService
 
   def upgrade
     strategy = current_service
-    strategy['startFirst'] = !strategy['launchConfig']['environment'].key? 'RANCHER_NON_OVERLAPPED_UPGRADES'
+    strategy['startFirst'] = !strategy['launchConfig']['environment'].key?('RANCHER_NON_OVERLAPPED_UPGRADES')
     payload = {
       inServiceStrategy: strategy
     }
