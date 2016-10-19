@@ -10,7 +10,7 @@ namespace :resque do
   end
 end
 
-if ENV['RAILS_ENV'] == 'development'
+if ENV['RAILS_ENV'] == 'test'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
   task default: [:rubocop]

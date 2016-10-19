@@ -8,7 +8,7 @@ gem 'rest-client'
 
 gem 'unicorn'
 
-group :development do
+group :development, :test do
   gem 'rubocop'
   gem 'rake'
 end
