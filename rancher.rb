@@ -11,9 +11,10 @@ class Rancher
   end
 
   def find_services_by_image_name(name, tag)
-    services.select do |item|
+    s = services.select do |item|
       item['type'] == 'service' && item['launchConfig']['imageUuid'] == "docker:#{name}:#{tag}"
-    end.map do |item|
+    end
+    s.map do |item|
       RancherService.new self, item
     end
   end
@@ -23,7 +24,15 @@ class Rancher
   end
 
   def post_api(url, body)
-    JSON.parse(RestClient::Request.execute(method: :post, url: url, payload: body, user: @access_key, password: @secret_key, headers: { content_type: :json }))
+    args = {
+      method: :post,
+      url: url,
+      payload: body,
+      user: @access_key,
+      password: @secret_key,
+      headers: { content_type: :json }
+    }
+    JSON.parse(RestClient::Request.execute(args))
   end
 
   private

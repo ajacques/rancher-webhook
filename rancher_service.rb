@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Represents a single Rancher server that is upgradable
 class RancherService
   def initialize(client, opts = {})
-    @client, @data = client, opts
+    @client = client
+    @data = opts
   end
 
   def upgraded?
@@ -11,15 +13,8 @@ class RancherService
 
   def upgrade
     strategy = current_service
-    environment = strategy['launchConfig']['environment'];
-    
-    # we have to check for nil because the environment key is optional
-    if environment.nil?
-      strategy['startFirst'] = false
-    else
-      strategy['startFirst'] = !environment.key?('RANCHER_NON_OVERLAPPED_UPGRADES')
-    end
-    
+    strategy['startFirst'] = start_first?
+
     payload = {
       inServiceStrategy: strategy
     }
@@ -46,5 +41,14 @@ class RancherService
 
   def finish_upgrade_uri
     @data['actions']['finishupgrade']
+  end
+
+  def start_first?
+    launch_config = current_service['launchConfig']
+    if launch_config.key? 'environment'
+      launch_config['environment']['RANCHER_NON_OVERLAPPED_UPGRADES']
+    else
+      false
+    end
   end
 end

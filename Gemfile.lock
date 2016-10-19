@@ -37,6 +37,7 @@ GEM
       rack
     rainbow (2.1.0)
     raindrops (0.16.0)
+    rake (11.3.0)
     redis (3.3.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -87,6 +88,7 @@ PLATFORMS
 DEPENDENCIES
   activejob
   rack-contrib
+  rake
   resque
   resque-scheduler
   rest-client
@@ -95,4 +97,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.12.5
+   1.13.2

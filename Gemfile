@@ -10,6 +10,7 @@ gem 'unicorn'
 
 group :development do
   gem 'rubocop'
+  gem 'rake'
 end
 
 gem 'activejob'
