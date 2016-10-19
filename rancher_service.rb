@@ -11,7 +11,15 @@ class RancherService
 
   def upgrade
     strategy = current_service
-    strategy['startFirst'] = !strategy['launchConfig']['environment'].key?('RANCHER_NON_OVERLAPPED_UPGRADES')
+    environment = strategy['launchConfig']['environment'];
+    
+    # we have to check for nil because the environment key is optional
+    if environment.nil?
+      strategy['startFirst'] = false
+    else
+      strategy['startFirst'] = !environment.key?('RANCHER_NON_OVERLAPPED_UPGRADES')
+    end
+    
     payload = {
       inServiceStrategy: strategy
     }
