@@ -4,7 +4,7 @@ require_relative './rancher'
 
 class FinalizeUpgradeJob < ActiveJob::Base
   def perform(opts)
-    client = Rancher.new uri: ENV['RANCHER_URI'], access_key: ENV['RANCHER_ACCESS_KEY'], secret_key: ENV['RANCHER_SECRET_KEY']
+    client = Rancher.new
     service = client.find_service_by_uri(opts[:service_uri])
     return unless service
     if service.upgraded?

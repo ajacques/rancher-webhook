@@ -3,10 +3,10 @@ require 'restclient'
 require_relative './rancher_service'
 
 class Rancher
-  def initialize(uri:, access_key:, secret_key:)
-    @uris = { base: uri }
-    @access_key = access_key
-    @secret_key = secret_key
+  def initialize
+    @uris = { base: ENV['RANCHER_URI'] }
+    @access_key = ENV['RANCHER_ACCESS_KEY'] || ENV['CATTLE_ACCESS_KEY']
+    @secret_key = ENV['RANCHER_SECRET_KEY']  || ENV['CATTLE_SECRET_KEY']
     bootstrap_uris
   end
 

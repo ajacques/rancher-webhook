@@ -9,7 +9,7 @@ RestClient.log = 'stdout'
 
 class UpgradeJob < ActiveJob::Base
   def perform(opts)
-    client = Rancher.new uri: ENV['RANCHER_URI'], access_key: ENV['RANCHER_ACCESS_KEY'], secret_key: ENV['RANCHER_SECRET_KEY']
+    client = Rancher.new
     services = client.find_services_by_image_name(opts[:repo_name], opts[:tag])
     services.each do |service|
       service.upgrade
