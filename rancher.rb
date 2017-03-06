@@ -6,7 +6,7 @@ class Rancher
   def initialize
     @uris = { base: ENV['RANCHER_URI'] }
     @access_key = ENV['RANCHER_ACCESS_KEY'] || ENV['CATTLE_ACCESS_KEY']
-    @secret_key = ENV['RANCHER_SECRET_KEY']  || ENV['CATTLE_SECRET_KEY']
+    @secret_key = ENV['RANCHER_SECRET_KEY'] || ENV['CATTLE_SECRET_KEY']
     bootstrap_uris
   end
 
